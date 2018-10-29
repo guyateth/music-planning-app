@@ -81,4 +81,5 @@ SettingsHome.navigationOptions = {
 
 };
 
+
 export { SettingsHome };

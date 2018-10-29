@@ -66,7 +66,7 @@ const FeedBackHome = createStackNavigator(
     },
   }
 );
-//How the feedback tab appears inside the app's drawer 
+//How the feedback tab appears inside the app's drawer
 FeedBackHome.navigationOptions = {
   drawerLabel: 'Feedback',
   drawerIcon: ({ tintColor }) => (
@@ -78,5 +78,6 @@ FeedBackHome.navigationOptions = {
   ),
 
 };
+
 
 export { FeedBackHome };
