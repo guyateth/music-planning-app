@@ -7,8 +7,10 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class HomeScreen extends React.Component {
+  //formatting of the header
   static navigationOptions = ({ navigation }) => {
     return {
+      //three bars icon with drawer button
       headerLeft: (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Button
@@ -21,6 +23,7 @@ class HomeScreen extends React.Component {
           />
         </View>
       ),
+      //header text and formatting
       title: "Home",
       headerTitleStyle: {
         flex: 1,
@@ -28,7 +31,7 @@ class HomeScreen extends React.Component {
       },
     };
   };
-//
+//the main screen
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
