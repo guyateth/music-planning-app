@@ -1,36 +1,25 @@
 
-//imports
+//imports for react, react native and the navigator
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
 
-//grid
+//grid for react, for easy gridding
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 //custom imports
 import { HomeScreen, PlanningHome, ToolsHome, SettingsHome, FeedBackHome } from './Code/Screens.js';
 
+//icons and cleaner buttons
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements';
 
-const styles = StyleSheet.create({
-  icon: {
-    width: 24,
-    height: 24,
-  },
-});
 
-const drawerStyles = StyleSheet.create({
-  basicButton: {
-    height:60
-  },
-  subMenuText: {
-    height: 60,
-    backgroundColor: 'gray'
-  },
-});
 
+/* The Stach navigator for The Home Stack
+ * Handles everything in the Home Tab
+ */
 const MainStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -48,6 +37,10 @@ const MainStack = createStackNavigator(
     },
   }
 );
+
+/* The layout for the home tab inside the app drawer
+ * needed for every single navigation option inside the drawer
+ */
 MainStack.navigationOptions = {
   drawerLabel: 'Home',
   drawerIcon: ({ tintColor }) => (
@@ -59,28 +52,11 @@ MainStack.navigationOptions = {
   ),
 };
 
-class DrawerElement extends React.Component {
-  render() {
-    return (
-      <View style={drawerStyles.subMenuText} >
-        <Grid>
-          <Col size= {1}>
-            <Icon name ="home"
-                  size= {30}/>
-          </Col>
-          <Col size= {5}>
-            <Button
-              //onPress={() => this.props.navigationb.navigate('Home')}
-              title={this.props.buttonTitle}
-            />
-          </Col>
-        </Grid>
-      </View>
-    );
 
-  }
-}
-
+/* The Main drawer
+ * all naviagation options need to be added here
+ * There is one for every button inside the drawer
+ */
 const MyApp = createDrawerNavigator({
   Home: {
     screen: MainStack,
@@ -98,44 +74,14 @@ const MyApp = createDrawerNavigator({
     screen: SettingsHome,
   },
 
-} /*,{
-  contentComponent: ({ navigation }) => (
-    <ScrollView>
-      <View style={drawerStyles.subMenuText} >
-        <Grid>
-          <Col size={1}>
-            <Icon name ="gear"
-                  size= {30}/>
-          </Col>
-          <Col size={5}>
-            <Button
-              onPress={() => navigation.navigate('Home')}
-              title="Go back home"
-            />
-          </Col>
-        </Grid>
-
-      </View>
-      <DrawerElement buttonTitle="test" />
-      <View style={drawerStyles.basicButton} />
-      <View style={drawerStyles.subMenuText} />
-      <View style={drawerStyles.basicButton} />
-      <View style={drawerStyles.subMenuText} />
-      <View style={drawerStyles.basicButton} />
-      <View style={drawerStyles.subMenuText} />
-      <View style={drawerStyles.basicButton} />
-      <View style={drawerStyles.subMenuText} />
-      <View style={drawerStyles.basicButton} />
-      <View style={drawerStyles.subMenuText} />
-      <View style={drawerStyles.basicButton} />
-    </ScrollView>
-  )
-}*/
+}
 
 );
 
 
-
+/* This is needed for the react native environment
+ * Export the code, so it's useable
+ */
 export default class App extends React.Component {
   render() {
     return <MyApp />;

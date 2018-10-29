@@ -11,10 +11,14 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
-
+/* This is the main Screen for planning
+ * it contains a header formatting for the stack navigator
+ */
 class PlanningHomeScreen extends React.Component {
+  //Formatting options
   static navigationOptions = ({ navigation }) => {
     return {
+      //the three bars in the header
       headerLeft: (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Button
@@ -27,6 +31,7 @@ class PlanningHomeScreen extends React.Component {
           />
         </View>
       ),
+      //The header text
       title: "Planning",
       headerTitleStyle: {
         flex: 1,
@@ -34,13 +39,15 @@ class PlanningHomeScreen extends React.Component {
       },
     };
   };
-
+  //The screen itself
   render() {
     return (
       <Text> Placeholder </Text>
     );
   }
 }
+
+//The stack navigator for the planning screen
 
 const PlanningHome = createStackNavigator(
   {
@@ -59,6 +66,8 @@ const PlanningHome = createStackNavigator(
     },
   }
 );
+
+//How the planning tab appears inside the app's drawer
 
 PlanningHome.navigationOptions = {
   drawerLabel: 'Planning',

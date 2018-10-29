@@ -11,10 +11,14 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-
+/* This is the main Screen for settings
+ * it contains a header formatting for the stack navigator
+ */
 class SettingsHomeScreen extends React.Component {
+  //Formatting options
   static navigationOptions = ({ navigation }) => {
     return {
+      //the three bars in the header
       headerLeft: (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Button
@@ -27,6 +31,7 @@ class SettingsHomeScreen extends React.Component {
           />
         </View>
       ),
+      //The header text
       title: "Settings",
       headerTitleStyle: {
         flex: 1,
@@ -34,13 +39,15 @@ class SettingsHomeScreen extends React.Component {
       },
     };
   };
-
+  //The screen itself
   render() {
     return (
       <Text> Placeholder </Text>
     );
   }
 }
+
+//The stack navigator for the settings screen
 
 const SettingsHome = createStackNavigator(
   {
@@ -59,6 +66,8 @@ const SettingsHome = createStackNavigator(
     },
   }
 );
+
+//How the settings tab appears inside the app's drawer
 
 SettingsHome.navigationOptions = {
   drawerLabel: 'Settings',
