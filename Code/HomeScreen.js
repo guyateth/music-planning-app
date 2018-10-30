@@ -249,6 +249,48 @@ class HomeScreen extends React.Component {
 
         {/* Some offset in between */}
         <View style={{ height: 25 }} />
+
+        {/* Wrapper for Todays tasks */}
+        <View style={{ elevation: 4, backgroundColor: '#ddd' }} >
+          {/* Tasks */}
+          {/* Title */}
+          <View style={{ height: 75, }}>
+            <Grid>
+              <Col size={1} />
+              <Col size={18} >
+                <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center'}} >
+                <Text style={textStyles.title}>Today's Schedule</Text>
+                </View>
+              </Col>
+              <Col size={3} >
+                {/* dropdown menu */}
+                <View style={{ height: 12 }} />
+                  <Picker mode={'dropdown'}>
+                    <Picker.Item label = "QuickSettings 1" value = "1" />
+                    <Picker.Item label = "QuickSettings 2" value = "2" />
+                    <Picker.Item label = "QuickSettings 3" value = "3" />
+                  </Picker>
+              </Col>
+              <Col size={1} />
+            </Grid>
+
+          </View>
+          {/* Todays task tile */}
+          <View style={{ height: 300 }}>
+            <Grid>
+
+            </Grid>
+          </ View>
+        </View>
+
+        {/* Some offset at the bottom */}
+        <View style={{ height: 25 }} />
+        {/* end of daily schedule */}
+
+
+        {/* Some offset in between */}
+        <View style={{ height: 25 }} />
+
         {/* Wrapper for Tasks */}
         <View style={{ elevation: 4, backgroundColor: '#ddd' }} >
           {/* Tasks */}
