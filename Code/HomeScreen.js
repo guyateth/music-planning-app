@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Picker} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
 
@@ -50,11 +50,20 @@ class HomeScreen extends React.Component {
           <View style={{ height: 75, }}>
             <Grid>
               <Col size={1} />
-              <Col size={22} >
+              <Col size={18} >
                 <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center'}} >
                 <Text style={textStyles.title}>Favourites</Text>
                 </View>
               </Col>
+              <Col size={3} >
+                <View style={{ height: 12 }} />
+                  <Picker mode={'dropdown'}>
+                    <Picker.Item label = "QuickSettings 1" value = "1" />
+                    <Picker.Item label = "QuickSettings 2" value = "2" />
+                    <Picker.Item label = "QuickSettings 3" value = "3" />
+                  </Picker>
+              </Col>
+              <Col size={1} />
             </Grid>
 
           </View>
@@ -64,14 +73,14 @@ class HomeScreen extends React.Component {
               <Col size={1} />
               <Col size={10}>
                 <Row size={10} >
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue'}} >
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
                     {/* This is the Tile itself */}
                     <Text> Favourite 1 </Text>
                   </View>
                 </Row>
                 <Row size={1} />
                 <Row size={10} >
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue'}} >
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
                     {/* This is the Tile itself */}
                     <Text> Favourite 3 </Text>
                   </View>
@@ -83,14 +92,14 @@ class HomeScreen extends React.Component {
 
               <Col size={10}>
                 <Row size={10} >
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue'}} >
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
                     {/* This is the Tile itself */}
                     <Text> Favourite 2 </Text>
                   </View>
                 </Row>
                 <Row size={1} />
                 <Row size={10} >
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue'}} >
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
                     {/* This is the Tile itself */}
                     <Text> Favourite 4 </Text>
                   </View>
@@ -115,11 +124,20 @@ class HomeScreen extends React.Component {
           <View style={{ height: 75, }}>
             <Grid>
               <Col size={1} />
-              <Col size={22} >
+              <Col size={18} >
                 <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center'}} >
                   <Text style={textStyles.title}>Projects</Text>
                 </View>
               </Col>
+              <Col size={3} >
+                <View style={{ height: 12 }} />
+                  <Picker mode={'dropdown'}>
+                    <Picker.Item label = "QuickSettings 1" value = "1" />
+                    <Picker.Item label = "QuickSettings 2" value = "2" />
+                    <Picker.Item label = "QuickSettings 3" value = "3" />
+                  </Picker>
+              </Col>
+              <Col size={1} />
             </Grid>
 
           </View>
@@ -238,11 +256,20 @@ class HomeScreen extends React.Component {
           <View style={{ height: 75, }}>
             <Grid>
               <Col size={1} />
-              <Col size={22} >
+              <Col size={18} >
                 <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center'}} >
                 <Text style={textStyles.title}>Tasks</Text>
                 </View>
               </Col>
+              <Col size={3} >
+                <View style={{ height: 12 }} />
+                  <Picker mode={'dropdown'}>
+                    <Picker.Item label = "QuickSettings 1" value = "1" />
+                    <Picker.Item label = "QuickSettings 2" value = "2" />
+                    <Picker.Item label = "QuickSettings 3" value = "3" />
+                  </Picker>
+              </Col>
+              <Col size={1} />
             </Grid>
 
           </View>
