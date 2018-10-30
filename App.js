@@ -29,6 +29,7 @@ const MainStack = createStackNavigator(
     navigationOptions: {
       headerStyle: {
         backgroundColor: 'skyblue',
+        elevation: 5
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
