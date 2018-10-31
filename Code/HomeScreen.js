@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, P
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
 
-import { Button } from 'react-native-elements';
+import { Button, CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -12,7 +12,34 @@ import { textStyles } from "./Styles.js"
 
 import * as Progress from 'react-native-progress';
 
+class CustomCheckbox extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      checked: false
+    };
+  }
+
+  render() {
+    const { checked } = this.state;
+    return (
+      <CheckBox
+        checked={checked}
+        onPress={() => this.setState({checked: !checked})}
+        checkedIcon='dot-circle-o'
+        uncheckedIcon='circle-o'
+        checkedColor='#aaa'
+        uncheckedColor='black'
+        containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+      />
+    );
+  }
+}
+
+
 class HomeScreen extends React.Component {
+
   //formatting of the header
   static navigationOptions = ({ navigation }) => {
     return {
@@ -278,13 +305,119 @@ class HomeScreen extends React.Component {
           {/* Todays task tile */}
           <View style={{ height: 300 }}>
             <Grid>
-
+              <Col size={1} />
+              <Col size={20} >
+                {/* each row stands for one todo task this is the first one */}
+                <Row size={9} >
+                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                  <Grid>
+                    <Col size={8}>
+                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 1</Text>
+                      </View>
+                    </Col>
+                    <Col size={1}>
+                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                        <CustomCheckbox />
+                      </View>
+                    </Col>
+                  </Grid>
+                  </View>
+                </Row>
+                {/* a little offset in between */}
+                <Row size={1} />
+                {/* second entry */}
+                <Row size={9} >
+                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                    <Grid>
+                      <Col size={8}>
+                        <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 2</Text>
+                        </View>
+                      </Col>
+                      <Col size={1}>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                          <CustomCheckbox />
+                        </View>
+                      </Col>
+                    </Grid>
+                  </View>
+                </Row>
+                <Row size={1} />
+                {/* this is the third entry */}
+                <Row size={9} >
+                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                  <Grid>
+                    <Col size={8}>
+                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 3</Text>
+                      </View>
+                    </Col>
+                    <Col size={1}>
+                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                      </View>
+                    </Col>
+                  </Grid>
+                  </View>
+                </Row>
+                <Row size={1} />
+                {/* fourth entry */}
+                <Row size={9} >
+                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                  <Grid>
+                    <Col size={8}>
+                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 4</Text>
+                      </View>
+                    </Col>
+                    <Col size={1}>
+                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                      </View>
+                    </Col>
+                  </Grid>
+                  </View>
+                </Row>
+                <Row size={1} />
+                {/* fifth entry */}
+                <Row size={9} >
+                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                  <Grid>
+                    <Col size={8}>
+                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 5</Text>
+                      </View>
+                    </Col>
+                    <Col size={1}>
+                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                      </View>
+                    </Col>
+                  </Grid>
+                  </View>
+                </Row>
+                <Row size={1} />
+                {/* sixth entry */}
+                <Row size={9} >
+                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                  <Grid>
+                    <Col size={8}>
+                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 6</Text>
+                      </View>
+                    </Col>
+                    <Col size={1}>
+                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                      </View>
+                    </Col>
+                  </Grid>
+                  </View>
+                </Row>
+                <Row size={3} />
+              </Col>
+              <Col size={1} />
             </Grid>
           </ View>
         </View>
 
-        {/* Some offset at the bottom */}
-        <View style={{ height: 25 }} />
         {/* end of daily schedule */}
 
 
@@ -300,7 +433,7 @@ class HomeScreen extends React.Component {
               <Col size={1} />
               <Col size={18} >
                 <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center'}} >
-                <Text style={textStyles.title}>Tasks</Text>
+                  <Text style={textStyles.title}>Tasks</Text>
                 </View>
               </Col>
               <Col size={3} >
