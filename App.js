@@ -9,7 +9,7 @@ import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator }
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 //custom imports
-import { HomeScreen, PlanningHome, ToolsHome, SettingsHome, FeedBackHome } from './Code/Screens.js';
+import { HomeScreen, PlanningHome, ToolsHome, SettingsHome, FeedBackHome, TasksHome } from './Code/Screens.js';
 
 //icons and cleaner buttons
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -64,6 +64,9 @@ const MyApp = createDrawerNavigator({
   },
   Planning: {
     screen: PlanningHome,
+  },
+  Tasks: {
+    screen: TasksHome,
   },
   FeedBack: {
     screen: FeedBackHome,

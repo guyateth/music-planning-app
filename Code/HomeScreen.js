@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Picker} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Picker, Animated, Switch, AsyncStorage} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
 
@@ -12,12 +12,14 @@ import { textStyles } from "./Styles.js"
 
 import * as Progress from 'react-native-progress';
 
+
 class CustomCheckbox extends Component {
-  constructor() {
+  checked: boolean
+  constructor(props) {
     super();
 
     this.state = {
-      checked: false
+      checked: props.initialState
     };
   }
 
@@ -26,7 +28,7 @@ class CustomCheckbox extends Component {
     return (
       <CheckBox
         checked={checked}
-        onPress={() => this.setState({checked: !checked})}
+        onPress={() => {this.setState({checked: !checked});this.props.function(this.props.nr)}}
         checkedIcon='dot-circle-o'
         uncheckedIcon='circle-o'
         checkedColor='#aaa'
@@ -39,6 +41,16 @@ class CustomCheckbox extends Component {
 
 
 class HomeScreen extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      reminders: false
+    };
+    this.setSettings();
+
+  }
+
+
 
   //formatting of the header
   static navigationOptions = ({ navigation }) => {
@@ -64,8 +76,92 @@ class HomeScreen extends React.Component {
       },
     };
   };
+
+  componentWillMount() {
+    this.checkBoxcol = new Array(6);
+    this.checkbox = new Array(6);
+    for (let i = 1; i <= 6; i++) {
+      this.checkBoxcol[i] = new Animated.Value(0);
+      this.checkbox[i] = false;
+    }
+
+
+  }
+
+  switchChanged(field, value) {
+    var obj = {};
+    obj[field] = value;
+    AsyncStorage.getItem('settings').then(function(strResult) {
+            var result = JSON.parse(strResult) || {};
+            Object.assign(result, obj);
+            AsyncStorage.setItem('settings', JSON.stringify(result));
+    });
+    console.log(obj);
+    this.setState(obj);
+  }
+
+  async setSettings() {
+    try {
+        var obj = {};
+        var settings = await AsyncStorage.getItem('settings');
+        settings = JSON.parse(settings);
+        Object.assign(obj, settings);
+        this.setState(obj);
+    } catch(e) {
+    } finally {
+    }
+  }
+
+  async doRead() {
+    try {
+        console.log("start");
+        var obj = {};
+        var settings = await AsyncStorage.getItem('settings');
+                console.log(settings);
+        settings = JSON.parse(settings);
+        console.log(settings);
+        Object.assign(obj, settings);
+        console.log(obj);
+                console.log("end");
+    } catch(e) {
+        console.error(e);
+    } finally {
+    }
+  }
+
+  //updating the color
+  handleChange = (nr) => {
+    if (this.checkbox[nr] == true) {
+      this.checkbox[nr] = false;
+      Animated.timing(                  // Animate over time
+        this.checkBoxcol[nr],        // The animated value to drive
+        {
+          toValue: '0',          // Animate to opacity: 1 (opaque)
+          duration: 200,              // Make it take a while
+        }
+      ).start();
+    } else {
+      this.checkbox[nr] = true;
+      Animated.timing(                  // Animate over time
+        this.checkBoxcol[nr],        // The animated value to drive
+        {
+          toValue: '1',          // Animate to opacity: 1 (opaque)
+          duration: 200,              // Make it take a while
+        }
+      ).start();
+    }
+  }
+
 //the main screen
   render() {
+    var CheckBox1 = true;
+    let backgroundColor = new Array(6);
+    for (let i = 1; i <= 6; i++) {
+      backgroundColor[i] = this.checkBoxcol[i].interpolate({
+          inputRange: [0, 1],
+          outputRange: ['rgb(135, 206, 235)', 'rgb(190, 190, 190)']
+      });
+    }
     return (
       <ScrollView>
         {/* Some offset at the top */}
@@ -309,26 +405,26 @@ class HomeScreen extends React.Component {
               <Col size={20} >
                 {/* each row stands for one todo task this is the first one */}
                 <Row size={9} >
-                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                  <Grid>
-                    <Col size={8}>
-                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 1</Text>
-                      </View>
-                    </Col>
-                    <Col size={1}>
-                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
-                        <CustomCheckbox />
-                      </View>
-                    </Col>
-                  </Grid>
-                  </View>
+                  <Animated.View style={{ backgroundColor: backgroundColor[1], flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                    <Grid>
+                      <Col size={8}>
+                        <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 1</Text>
+                        </View>
+                      </Col>
+                      <Col size={1}>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                          <CustomCheckbox initialState={false} function={this.handleChange} nr={1} />
+                        </View>
+                      </Col>
+                    </Grid>
+                  </Animated.View>
                 </Row>
                 {/* a little offset in between */}
                 <Row size={1} />
                 {/* second entry */}
                 <Row size={9} >
-                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                  <Animated.View style={{ backgroundColor: backgroundColor[2], flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
                     <Grid>
                       <Col size={8}>
                         <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
@@ -337,79 +433,83 @@ class HomeScreen extends React.Component {
                       </Col>
                       <Col size={1}>
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
-                          <CustomCheckbox />
+                          <CustomCheckbox initialState={false} function={this.handleChange} nr={2} />
                         </View>
                       </Col>
                     </Grid>
-                  </View>
+                  </Animated.View>
                 </Row>
                 <Row size={1} />
                 {/* this is the third entry */}
                 <Row size={9} >
-                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                  <Grid>
-                    <Col size={8}>
-                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 3</Text>
-                      </View>
-                    </Col>
-                    <Col size={1}>
-                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
-                      </View>
-                    </Col>
-                  </Grid>
-                  </View>
+                  <Animated.View style={{ backgroundColor: backgroundColor[3], flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                    <Grid>
+                      <Col size={8}>
+                        <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 3</Text>
+                        </View>
+                      </Col>
+                      <Col size={1}>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                          <CustomCheckbox initialState={false} function={this.handleChange} nr={3} />
+                        </View>
+                      </Col>
+                    </Grid>
+                  </Animated.View>
                 </Row>
                 <Row size={1} />
                 {/* fourth entry */}
                 <Row size={9} >
-                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                  <Grid>
-                    <Col size={8}>
-                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 4</Text>
-                      </View>
-                    </Col>
-                    <Col size={1}>
-                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
-                      </View>
-                    </Col>
-                  </Grid>
-                  </View>
+                  <Animated.View style={{ backgroundColor: backgroundColor[4], flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                    <Grid>
+                      <Col size={8}>
+                        <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 4</Text>
+                        </View>
+                      </Col>
+                      <Col size={1}>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                          <CustomCheckbox initialState={false} function={this.handleChange} nr={4} />
+                        </View>
+                      </Col>
+                    </Grid>
+                  </Animated.View>
                 </Row>
                 <Row size={1} />
                 {/* fifth entry */}
                 <Row size={9} >
-                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                  <Grid>
-                    <Col size={8}>
-                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 5</Text>
-                      </View>
-                    </Col>
-                    <Col size={1}>
-                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
-                      </View>
-                    </Col>
-                  </Grid>
-                  </View>
+                  <Animated.View style={{ backgroundColor: backgroundColor[5], flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                    <Grid>
+                      <Col size={8}>
+                        <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 5</Text>
+                        </View>
+                      </Col>
+                      <Col size={1}>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                          <CustomCheckbox initialState={false} function={this.handleChange} nr={5} />
+                        </View>
+                      </Col>
+                    </Grid>
+                  </Animated.View>
                 </Row>
                 <Row size={1} />
                 {/* sixth entry */}
                 <Row size={9} >
-                  <View style={{ backgroundColor: 'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                  <Grid>
-                    <Col size={8}>
-                      <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 6</Text>
-                      </View>
-                    </Col>
-                    <Col size={1}>
-                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
-                      </View>
-                    </Col>
-                  </Grid>
-                  </View>
+                  <Animated.View style={{ backgroundColor: backgroundColor[6], flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                    <Grid>
+                      <Col size={8}>
+                        <View style={{ flex: 1, alignItems: 'baseline', justifyContent: 'center' }} >
+                          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>  Task 6</Text>
+                        </View>
+                      </Col>
+                      <Col size={1}>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
+                          <CustomCheckbox initialState={false} function={this.handleChange} nr={6} />
+                        </View>
+                      </Col>
+                    </Grid>
+                  </Animated.View>
                 </Row>
                 <Row size={3} />
               </Col>
@@ -450,7 +550,17 @@ class HomeScreen extends React.Component {
           </View>
           <View style={{ height: 300 }}>
             <Grid>
-
+              <Switch
+              onValueChange={(value) => this.switchChanged('reminders', value)}
+              value={this.state.reminders} />
+              <Button
+                onPress={() => this.doRead()}
+                icon={{name: 'menu', size: 30}}
+                buttonStyle={{
+                  flex: 1,
+                  backgroundColor: "black",
+                }}
+              />
             </Grid>
           </ View>
         </View>
