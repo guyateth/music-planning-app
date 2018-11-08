@@ -78,6 +78,7 @@ class TasksScreenHome extends React.Component {
     };
     this.loadState();
 
+
   }
   //Formatting options
   static navigationOptions = ({ navigation }) => {
@@ -108,23 +109,35 @@ class TasksScreenHome extends React.Component {
     if (this.state.activeTasks[nr].active == true) {
       this.state.activeTasks[nr].active = false;
       this.forceUpdate()
+      Animated.timing(                  // Animate over time
+        this.state.activeTasks[nr].col,        // The animated value to drive
+        {
+          toValue: '1',          // Animate to opacity: 1 (opaque)
+          duration: 200,              // Make it take a while
+        }
+      ).start();
     } else {
       this.state.activeTasks[nr].active = true;
       this.forceUpdate()
-
+      Animated.timing(                  // Animate over time
+        this.state.activeTasks[nr].col,        // The animated value to drive
+        {
+          toValue: '0',          // Animate to opacity: 1 (opaque)
+          duration: 200,              // Make it take a while
+        }
+      ).start();
     }
+    this.updatetasks();
   }
 
-  updatetasks(field, value) {
+  updatetasks() {
     var obj = {};
-    obj[field] = value;
+    obj['activeTasks'] = this.state.activeTasks;
     AsyncStorage.getItem('tasks').then(function(strResult) {
             var result = JSON.parse(strResult) || {};
             Object.assign(result, obj);
             AsyncStorage.setItem('tasks', JSON.stringify(result));
     });
-    console.log(obj);
-    this.setState(obj);
   }
 
 
@@ -136,8 +149,16 @@ class TasksScreenHome extends React.Component {
         Object.assign(obj, tasks);
         this.setState(obj);
         console.log(obj);
+        console.log('start log');
+        console.log(this.state.activeTasks);
+        Object.values(this.state.activeTasks).map((item, key) => {
+          item.col = new Animated.Value(item.active ? 0 : 1);
+        });
+        console.log(this.state.activeTasks);
+        console.log('end log');
     } catch(e) {
     } finally {
+      this.forceUpdate();
     }
   }
 
@@ -148,6 +169,7 @@ class TasksScreenHome extends React.Component {
     newTask['subtitle'] = this.state.subtitle;
     newTask['nr'] = nr;
     newTask['active'] = true;
+    newTask['col'] = new Animated.Value(0);
 
     updateval = {};
     updateval[nr] = newTask;
@@ -189,6 +211,10 @@ class TasksScreenHome extends React.Component {
     this.setModalVisible(false);
   }
 
+  componentWillMount(){
+
+  }
+
 
   renderTasks() {
       console.log(this.state.activeTasks)
@@ -196,10 +222,13 @@ class TasksScreenHome extends React.Component {
 
 
       return Object.values(this.state.activeTasks).map((item, key) => {
-          var backGr = item.active ? 'skyblue' : 'grey';
+        var backGr = item.col.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['rgb(135, 206, 235)', 'rgb(190, 190, 190)']
+        });
           return (
               <View key={key}>
-              <View style={{ backgroundColor: backGr, flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2, borderRadius: 5 }} key={key} >
+              <Animated.View style={{ backgroundColor: backGr, flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2, borderRadius: 5 }} key={key} >
                 <Grid>
                   <Col size={0.5} />
                   <Col size={8}>
@@ -218,13 +247,13 @@ class TasksScreenHome extends React.Component {
                     </View>
                   </Col>
                 </Grid>
-              </View>
+              </Animated.View>
               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', height: 10 }} key={key} />
               </View>
           );
       });
       } catch(e) {
-        console.error(e)
+        console.log('err')
       } finally {
       }
   }
