@@ -10,14 +10,12 @@ import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator }
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import { MetronomeScreen, MetronomeStack } from './Tools/Metronome.js'
-import { RecordingStack, RecordingScreen } from './Tools/Recording.js'
-import { StoreStack, StoreScreen } from './Tools/Store.js'
+
 
 /* This is the main Screen for tools
  * it contains a header formatting for the stack navigator
  */
-class HomeScreen extends React.Component {
+class AddCalendarEventScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     //Formatting options
     return {
@@ -35,7 +33,7 @@ class HomeScreen extends React.Component {
         </View>
       ),
       //The header text
-      title: "Tools",
+      title: "New Event",
       headerTitleStyle: {
         flex: 1,
         fontSize: 25,
@@ -45,22 +43,19 @@ class HomeScreen extends React.Component {
   //The screen itself
   render() {
     return (
-      <Text>placeholder</Text>
+      <Text>Add Event PlaceHolder</Text>
     );
   }
 }
 
 //The stack navigator for the tools screen
 
-const ToolsHome = createStackNavigator(
+const AddCalendarEventStack = createStackNavigator(
   {
-    ToolsHome: HomeScreen,
-    Metronome: MetronomeScreen,
-    Store: StoreScreen,
-    Recording: RecordingScreen,
+    AddCalendarEvent: AddCalendarEventScreen,
   },
   {
-    initialRouteName: 'ToolsHome',
+    initialRouteName: 'AddCalendarEvent',
     navigationOptions: {
       headerStyle: {
         backgroundColor: 'skyblue',
@@ -74,4 +69,5 @@ const ToolsHome = createStackNavigator(
 );
 
 
-export { ToolsHome, MetronomeStack, RecordingStack, StoreStack };
+
+export { AddCalendarEventStack, AddCalendarEventScreen };

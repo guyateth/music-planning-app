@@ -1,8 +1,7 @@
-/* This is the Feedback home
+/* This is the tools home
  * it contains a stackNavigator for the header and settings subsystem
  */
 
-//All needed imports
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
@@ -11,13 +10,12 @@ import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator }
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-
-/* This is the main Screen for feedback
+/* This is the main Screen for tools
  * it contains a header formatting for the stack navigator
  */
-class FeedBackHomeScreen extends React.Component {
-  //Formatting options
+class ProjectScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
+    //Formatting options
     return {
       //the three bars in the header
       headerLeft: (
@@ -33,7 +31,7 @@ class FeedBackHomeScreen extends React.Component {
         </View>
       ),
       //The header text
-      title: "Feedback",
+      title: "Project Overview",
       headerTitleStyle: {
         flex: 1,
         fontSize: 25,
@@ -43,18 +41,19 @@ class FeedBackHomeScreen extends React.Component {
   //The screen itself
   render() {
     return (
-      <Text> Placeholder </Text>
+      <Text>Project PlaceHolder</Text>
     );
   }
 }
 
-//The stack navigator for the feedback screen
-const FeedBackHome = createStackNavigator(
+//The stack navigator for the tools screen
+
+const ProjectStack = createStackNavigator(
   {
-    FeedBackHome: FeedBackHomeScreen,
+    Project: ProjectScreen,
   },
   {
-    initialRouteName: 'FeedBackHome',
+    initialRouteName: 'Project',
     navigationOptions: {
       headerStyle: {
         backgroundColor: 'skyblue',
@@ -66,18 +65,7 @@ const FeedBackHome = createStackNavigator(
     },
   }
 );
-//How the feedback tab appears inside the app's drawer
-FeedBackHome.navigationOptions = {
-  drawerLabel: 'Feedback',
-  drawerIcon: ({ tintColor }) => (
-    <Icon
-      name='comment'
-      color='black'
-      size={24}
-    />
-  ),
-
-};
 
 
-export { FeedBackHome };
+
+export { ProjectStack, ProjectScreen };

@@ -10,14 +10,10 @@ import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator }
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import { MetronomeScreen, MetronomeStack } from './Tools/Metronome.js'
-import { RecordingStack, RecordingScreen } from './Tools/Recording.js'
-import { StoreStack, StoreScreen } from './Tools/Store.js'
-
 /* This is the main Screen for tools
  * it contains a header formatting for the stack navigator
  */
-class HomeScreen extends React.Component {
+class CommunityScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     //Formatting options
     return {
@@ -35,7 +31,7 @@ class HomeScreen extends React.Component {
         </View>
       ),
       //The header text
-      title: "Tools",
+      title: "Community",
       headerTitleStyle: {
         flex: 1,
         fontSize: 25,
@@ -52,15 +48,12 @@ class HomeScreen extends React.Component {
 
 //The stack navigator for the tools screen
 
-const ToolsHome = createStackNavigator(
+const CommunityHome = createStackNavigator(
   {
-    ToolsHome: HomeScreen,
-    Metronome: MetronomeScreen,
-    Store: StoreScreen,
-    Recording: RecordingScreen,
+    CommunityHomeScreen: CommunityScreen,
   },
   {
-    initialRouteName: 'ToolsHome',
+    initialRouteName: 'CommunityHomeScreen',
     navigationOptions: {
       headerStyle: {
         backgroundColor: 'skyblue',
@@ -73,5 +66,18 @@ const ToolsHome = createStackNavigator(
   }
 );
 
+//How the tools tab appears inside the app's drawer
 
-export { ToolsHome, MetronomeStack, RecordingStack, StoreStack };
+CommunityHome.navigationOptions = {
+    drawerLabel: 'Community',
+    drawerIcon: ({ tintColor }) => (
+      <Icon
+        name='users'
+        color='black'
+        size={20}
+      />
+    ),
+};
+
+
+export { CommunityHome };

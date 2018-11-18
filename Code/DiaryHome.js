@@ -10,14 +10,13 @@ import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator }
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import { MetronomeScreen, MetronomeStack } from './Tools/Metronome.js'
-import { RecordingStack, RecordingScreen } from './Tools/Recording.js'
-import { StoreStack, StoreScreen } from './Tools/Store.js'
+import { AddCalendarEventStack,
+         AddCalendarEventScreen } from './Diary/CalendarEvent.js'
 
 /* This is the main Screen for tools
  * it contains a header formatting for the stack navigator
  */
-class HomeScreen extends React.Component {
+class DiaryHomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     //Formatting options
     return {
@@ -35,7 +34,7 @@ class HomeScreen extends React.Component {
         </View>
       ),
       //The header text
-      title: "Tools",
+      title: "Diary",
       headerTitleStyle: {
         flex: 1,
         fontSize: 25,
@@ -52,15 +51,13 @@ class HomeScreen extends React.Component {
 
 //The stack navigator for the tools screen
 
-const ToolsHome = createStackNavigator(
+const DiaryHome = createStackNavigator(
   {
-    ToolsHome: HomeScreen,
-    Metronome: MetronomeScreen,
-    Store: StoreScreen,
-    Recording: RecordingScreen,
+    DiaryHome: DiaryHomeScreen,
+    AddCalendarEvent: AddCalendarEventScreen,
   },
   {
-    initialRouteName: 'ToolsHome',
+    initialRouteName: 'DiaryHome',
     navigationOptions: {
       headerStyle: {
         backgroundColor: 'skyblue',
@@ -73,5 +70,18 @@ const ToolsHome = createStackNavigator(
   }
 );
 
+//How the tools tab appears inside the app's drawer
 
-export { ToolsHome, MetronomeStack, RecordingStack, StoreStack };
+DiaryHome.navigationOptions = {
+    drawerLabel: 'Diary',
+    drawerIcon: ({ tintColor }) => (
+      <Icon
+        name='calendar-alt'
+        color='black'
+        size={24}
+      />
+    ),
+};
+
+
+export { DiaryHome, AddCalendarEventStack };

@@ -13,15 +13,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 /*
  * Import Submodules
  */
+ import { ProjectStack, ProjectScreen } from './Projects/Project1.js'
+ import { AddProjectStack, AddProjectScreen } from './Projects/NewProject.js'
 
-import { TodayStack, TodayScreen } from './Planning/Today.js'
-import { HistoryStack, HistoryScreen } from './Planning/History.js'
-import { CreateSessionStack, CreateSessionScreen } from './Planning/CreateSession.js'
 
 /* This is the main Screen for planning
  * it contains a header formatting for the stack navigator
  */
-class PlanningHomeScreen extends React.Component {
+class ProjectsHomeScreen extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -47,7 +46,7 @@ class PlanningHomeScreen extends React.Component {
         </View>
       ),
       //The header text
-      title: "Planning",
+      title: "Projects",
       headerTitleStyle: {
         flex: 1,
         fontSize: 25,
@@ -93,17 +92,16 @@ class PlanningHomeScreen extends React.Component {
 
 //The stack navigator for the planning screen
 
-const PlanningHome = createStackNavigator(
+const ProjectsHome = createStackNavigator(
   {
-    PlanningHome: {
-      screen: PlanningHomeScreen,
-      screen: TodayScreen,
-      screen: HistoryScreen,
-      screen: CreateSessionScreen,
+    ProjectsHome: {
+      screen: ProjectsHomeScreen,
+      screen: ProjectScreen,
+      screen: AddProjectScreen,
     },
   },
   {
-    initialRouteName: 'PlanningHome',
+    initialRouteName: 'ProjectsHome',
     navigationOptions: {
       headerStyle: {
         backgroundColor: 'skyblue',
@@ -118,17 +116,17 @@ const PlanningHome = createStackNavigator(
 
 //How the planning tab appears inside the app's drawer
 
-PlanningHome.navigationOptions = {
-  drawerLabel: 'Planning',
+ProjectsHome.navigationOptions = {
+  drawerLabel: 'Projects',
   drawerIcon: ({ tintColor }) => (
     <Icon
-      name='clipboard'
+      name='project-diagram'
       color='black'
-      size={24}
+      size={20}
     />
   ),
 
 };
 
 
-export { PlanningHome, CreateSessionStack, TodayStack, HistoryStack };
+export { ProjectsHome, ProjectStack, AddProjectStack };

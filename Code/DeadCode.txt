@@ -1,0 +1,67 @@
+/*,{
+ contentComponent: ({ navigation }) => (
+   <ScrollView>
+     <View style={drawerStyles.subMenuText} >
+       <Grid>
+         <Col size={1}>
+           <Icon name ="gear"
+                 size= {30}/>
+         </Col>
+         <Col size={5}>
+           <Button
+             onPress={() => navigation.navigate('Home')}
+             title="Go back home"
+           />
+         </Col>
+       </Grid>
+
+     </View>
+     <DrawerElement buttonTitle="test" />
+     <View style={drawerStyles.basicButton} />
+     <View style={drawerStyles.subMenuText} />
+     <View style={drawerStyles.basicButton} />
+     <View style={drawerStyles.subMenuText} />
+     <View style={drawerStyles.basicButton} />
+     <View style={drawerStyles.subMenuText} />
+     <View style={drawerStyles.basicButton} />
+     <View style={drawerStyles.subMenuText} />
+     <View style={drawerStyles.basicButton} />
+     <View style={drawerStyles.subMenuText} />
+     <View style={drawerStyles.basicButton} />
+   </ScrollView>
+ )
+}*/
+
+
+
+class DrawerElement extends React.Component {
+  render() {
+    return (
+      <View style={drawerStyles.subMenuText} >
+        <Grid>
+          <Col size= {1}>
+            <Icon name ="home"
+                  size= {30}/>
+          </Col>
+          <Col size= {5}>
+            <Button
+              //onPress={() => this.props.navigationb.navigate('Home')}
+              title={this.props.buttonTitle}
+            />
+          </Col>
+        </Grid>
+      </View>
+    );
+
+  }
+}
+
+const drawerStyles = StyleSheet.create({
+  basicButton: {
+    height:60
+  },
+  subMenuText: {
+    height: 60,
+    backgroundColor: 'gray'
+  },
+});

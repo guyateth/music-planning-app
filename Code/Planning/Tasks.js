@@ -35,7 +35,7 @@ import ActionButton from 'react-native-action-button';
  *
  */
 
- class CustomCheckbox extends Component {
+ class CustomCheckbox extends Component{
    checked: boolean
    constructor(props) {
      super();
@@ -432,4 +432,4 @@ TasksHome.navigationOptions = {
 };
 
 
-export { TasksHome };
+export { TasksHome, TasksScreenHome };
