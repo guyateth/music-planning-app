@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Picker, Animated, Switch, AsyncStorage} from 'react-native';
-import { DrawerNavigator, DrawerItems, NavigationActions } from 'react-navigation';
+import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
 
 import { Button, CheckBox } from 'react-native-elements';
@@ -8,10 +8,24 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-import { textStyles } from "./Styles.js"
+
 
 import * as Progress from 'react-native-progress';
 
+const textStyles = StyleSheet.create({
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    height: 60,
+    backgroundColor: 'gray'
+  },
+  normalText: {
+    height: 60,
+    backgroundColor: 'gray'
+  },
+});
 
 class CustomCheckbox extends Component {
   checked: boolean
@@ -40,7 +54,7 @@ class CustomCheckbox extends Component {
 }
 
 
-class HomeScreen extends React.Component {
+class HomeScreenStack extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -54,18 +68,6 @@ class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       //three bars icon with drawer button
-      headerLeft: (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Button
-            onPress={() => navigation.toggleDrawer()}
-            icon={{name: 'menu', size: 30}}
-            buttonStyle={{
-              flex: 1,
-              backgroundColor: "transparent",
-            }}
-          />
-        </View>
-      ),
       //header text and formatting
       title: "Home",
       headerTitleStyle: {
@@ -149,14 +151,6 @@ class HomeScreen extends React.Component {
       ).start();
     }
   }
-
-  navigateToScreen = (route) => () => {
-    const navigateAction = NavigationActions.navigate({
-      routeName: route
-    });
-    this.props.navigation.dispatch(navigateAction);
-  }
-
 
 //the main screen
   render() {
@@ -270,147 +264,109 @@ class HomeScreen extends React.Component {
             </Grid>
 
           </View>
-            {/* Projects */}
-            {/* Title */}
-            <View style={{ height: 600 }}>
-              <Grid>
-                <Col size={1} />
+          <View style={{ height: 400 }}>
+            <Grid>
+              <Col size={1} />
 
-                <Col size={21} >
-                {/* First Project */}
-                  <Row size={1}/>
-                  <Row size={5}>
-                    <Col size={15} >
-                    <TouchableOpacity style={{ flex: 1}} onPress={this.navigateToScreen('Project')}>
-                      <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                        {/* Text Formatting */}
-                        <Grid>
-                          <Col size={1} />
-                          <Col size={10}>
-                            <Row size={1} />
-                            <Row size={4}>
-                              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Project 1</Text>
-                            </Row>
-                            <Row size={5}>
-                              <Col size={1}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Phase 3</Text>
-                              </Col>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Next up</Text>
-                              <Col size={1}>
-                              </Col>
-                            </Row>
-                          </Col>
-                        </Grid>
-                      </View>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col size={6} >
-                    <TouchableOpacity style={{ flex: 1}} onPress={this.navigateToScreen('Project')}>
-                      <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2}} >
-                        <Progress.Circle size={75} progress={0.77} showsText={true} thickness={8} borderWidth={0} color={'black'} />
-                      </View>
-                      </TouchableOpacity>
-                    </Col>
-                  </Row>
-                  <Row size={1} />
-                  {/* Second Project */}
-                  <Row size={5}>
-                    <Col size={15} >
-                    <TouchableOpacity style={{ flex: 1}} onPress={this.navigateToScreen('Project')}>
-                      <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                        {/* Text Formatting */}
-                        <Grid>
-                          <Col size={1} />
-                          <Col size={10}>
-                            <Row size={1} />
-                            <Row size={4}>
-                              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Project 2</Text>
-                            </Row>
-                            <Row size={5}>
-                              <Col size={1}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Phase 1</Text>
-                              </Col>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Next up</Text>
-                              <Col size={1}>
-                              </Col>
-                            </Row>
-                          </Col>
-                        </Grid>
-                      </View>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col size={6} >
-                    <TouchableOpacity style={{ flex: 1}} onPress={this.navigateToScreen('Project')}>
-                      <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2}} >
-                        <Progress.Circle size={75} progress={0.15} showsText={true} thickness={8} borderWidth={0} color={'black'} />
-                      </View>
-                      </TouchableOpacity>
-                    </Col>
-                  </Row>
-                  <Row size={1} />
-                  {/* Third Project */}
-                  <Row size={5}>
-                    <Col size={15} >
-                    <TouchableOpacity style={{ flex: 1}} onPress={this.navigateToScreen('Project')}>
-                      <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                        {/* Text Formatting */}
-                        <Grid>
-                          <Col size={1} />
-                          <Col size={10}>
-                            <Row size={1} />
-                            <Row size={4}>
-                              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Project 3</Text>
-                            </Row>
-                            <Row size={5}>
-                              <Col size={1}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Phase 2</Text>
-                              </Col>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Next up</Text>
-                              <Col size={1}>
-                              </Col>
-                            </Row>
-                          </Col>
-                        </Grid>
-                      </View>
-                      </TouchableOpacity>
-                    </Col>
-                    <Col size={6} >
-                    <TouchableOpacity style={{ flex: 1}} onPress={this.navigateToScreen('Project')}>
-                      <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2}} >
-                        <Progress.Circle size={75} progress={0.48} showsText={true} thickness={8} borderWidth={0} color={'black'} />
-                      </View>
-                      </TouchableOpacity>
-                    </Col>
-                  </Row>
-                  <Row size={1} />
-                  {/* This is the create project at the bottom*/}
-                  <Row size={5}>
-                    <Col size={21} >
-                      <TouchableOpacity style={{backgroundColor: 'black', flex: 1}} onPress={this.navigateToScreen('AddProject')}>
-                        <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
-                          {/* Text Formatting */}
-                          <Grid>
-                            <Col size={1} />
-                            <Col size={10}>
-                              <Row size={1} />
-                              <Row size={4}>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Create a new Project</Text>
-                              </Row>
-                              <Row size={5}>
-                                  <Text style={{ fontSize: 18, fontWeight: 'bold' }}>To create a new Project, click here</Text>
-                              </Row>
+              <Col size={21} >
+              {/* First Project */}
+                <Row size={5}>
+                  <Col size={15} >
+                    <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                      {/* Text Formatting */}
+                      <Grid>
+                        <Col size={1} />
+                        <Col size={10}>
+                          <Row size={1} />
+                          <Row size={4}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Project 1</Text>
+                          </Row>
+                          <Row size={5}>
+                            <Col size={1}>
+                              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Phase 3</Text>
                             </Col>
-                          </Grid>
-                        </View>
-                      </TouchableOpacity>
-                    </Col>
-                  </Row>
-                  <Row size={1} />
-                </Col>
-                <Col size={1} />
-              </Grid>
+                              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Next up</Text>
+                            <Col size={1}>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Grid>
+                    </View>
+                  </Col>
+                  <Col size={6} >
+                    <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2}} >
+                      <Progress.Circle size={75} progress={0.77} showsText={true} thickness={8} borderWidth={0} color={'black'} />
+                    </View>
+                  </Col>
+                </Row>
+                <Row size={1} />
+                {/* Second Project */}
+                <Row size={5}>
+                  <Col size={15} >
+                    <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                      {/* Text Formatting */}
+                      <Grid>
+                        <Col size={1} />
+                        <Col size={10}>
+                          <Row size={1} />
+                          <Row size={4}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Project 2</Text>
+                          </Row>
+                          <Row size={5}>
+                            <Col size={1}>
+                              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Phase 1</Text>
+                            </Col>
+                              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Next up</Text>
+                            <Col size={1}>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Grid>
+                    </View>
+                  </Col>
+                  <Col size={6} >
+                    <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2}} >
+                      <Progress.Circle size={75} progress={0.15} showsText={true} thickness={8} borderWidth={0} color={'black'} />
+                    </View>
+                  </Col>
+                </Row>
+                <Row size={1} />
+                {/* Third Project */}
+                <Row size={5}>
+                  <Col size={15} >
+                    <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
+                      {/* Text Formatting */}
+                      <Grid>
+                        <Col size={1} />
+                        <Col size={10}>
+                          <Row size={1} />
+                          <Row size={4}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Project 3</Text>
+                          </Row>
+                          <Row size={5}>
+                            <Col size={1}>
+                              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Phase 2</Text>
+                            </Col>
+                              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Next up</Text>
+                            <Col size={1}>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Grid>
+                    </View>
+                  </Col>
+                  <Col size={6} >
+                    <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2}} >
+                      <Progress.Circle size={75} progress={0.48} showsText={true} thickness={8} borderWidth={0} color={'black'} />
+                    </View>
+                  </Col>
+                </Row>
+                <Row size={1} />
+              </Col>
+              <Col size={1} />
+            </Grid>
 
-          </View>
+          </ View>
         </View>
         {/* End of Projects */}
 
@@ -609,4 +565,4 @@ class HomeScreen extends React.Component {
 
 
 
-export { HomeScreen };
+export { HomeScreenStack };

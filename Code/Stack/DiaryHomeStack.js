@@ -14,31 +14,15 @@
 
  import * as Progress from 'react-native-progress';
 
-import { AddCalendarEventStack,
-         AddCalendarEventScreen } from './Diary/CalendarEvent.js'
-
-import { CreateSessionScreen } from './Planning/CreateSession.js'
 
 /* This is the main Screen for tools
  * it contains a header formatting for the stack navigator
  */
-class DiaryHomeScreen extends React.Component {
+class DiaryHomeScreenStack extends React.Component {
   static navigationOptions = ({ navigation }) => {
     //Formatting options
     return {
       //the three bars in the header
-      headerLeft: (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Button
-            onPress={() => navigation.toggleDrawer()}
-            icon={{name: 'menu', size: 30}}
-            buttonStyle={{
-              flex: 1,
-              backgroundColor: "transparent",
-            }}
-          />
-        </View>
-      ),
       //The header text
       title: "Diary",
       headerTitleStyle: {
@@ -90,7 +74,7 @@ class DiaryHomeScreen extends React.Component {
               <Row size={1} />
               {/* Second Project */}
               <Row size={5}>
-              <TouchableOpacity style={{backgroundColor: 'black', flex: 1}} onPress={this.navigateToScreen('AddCalendarEvent')}>
+              <TouchableOpacity style={{backgroundColor: 'black', flex: 1}} onPress={this.navigateToScreen('CalendarEvent')}>
                 <View style={{ backgroundColor:'skyblue', flex: 1, alignItems: 'center', justifyContent: 'center', elevation: 2 }} >
                   {/* Text Formatting */}
                   <Grid>
@@ -141,40 +125,6 @@ class DiaryHomeScreen extends React.Component {
   }
 }
 
-//The stack navigator for the tools screen
-
-const DiaryHome = createStackNavigator(
-  {
-    DiaryHome: DiaryHomeScreen,
-    AddCalendarEvent: AddCalendarEventScreen,
-    CreateSession: CreateSessionScreen,
-  },
-  {
-    initialRouteName: 'DiaryHome',
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: 'skyblue',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    },
-  }
-);
-
-//How the tools tab appears inside the app's drawer
-
-DiaryHome.navigationOptions = {
-    drawerLabel: 'Diary',
-    drawerIcon: ({ tintColor }) => (
-      <Icon
-        name='calendar-alt'
-        color='black'
-        size={24}
-      />
-    ),
-};
 
 
-export { DiaryHome, AddCalendarEventStack };
+export { DiaryHomeScreenStack };

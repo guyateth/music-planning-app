@@ -14,11 +14,6 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 import * as Progress from 'react-native-progress';
 
-/*
- * Import Submodules
- */
- import { ProjectStack, ProjectScreen } from './Projects/Project1.js'
- import { AddProjectStack, AddProjectScreen } from './Projects/NewProject.js'
 
 
  const textStyles = StyleSheet.create({
@@ -39,7 +34,7 @@ import * as Progress from 'react-native-progress';
 /* This is the main Screen for planning
  * it contains a header formatting for the stack navigator
  */
-class ProjectsHomeScreen extends React.Component {
+class ProjectsHomeStack extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -51,19 +46,6 @@ class ProjectsHomeScreen extends React.Component {
   //Formatting options
   static navigationOptions = ({ navigation }) => {
     return {
-      //the three bars in the header
-      headerLeft: (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Button
-            onPress={() => navigation.toggleDrawer()}
-            icon={{name: 'menu', size: 30}}
-            buttonStyle={{
-              flex: 1,
-              backgroundColor: "transparent",
-            }}
-          />
-        </View>
-      ),
       //The header text
       title: "Projects",
       headerTitleStyle: {
@@ -257,47 +239,7 @@ class ProjectsHomeScreen extends React.Component {
   }
 }
 
-//The stack navigator for the planning screen
-
-const ProjectsHome = createStackNavigator(
-  {
-    ProjectsHome: {
-      screen: ProjectsHomeScreen,
-    },
-    AddProjectiS: {
-      screen: AddProjectScreen,
-    },
-    ProjectiS: {
-      screen: ProjectScreen,
-    },
-  },
-  {
-    initialRouteName: 'ProjectsHome',
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: 'skyblue',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    },
-  }
-);
-
-//How the planning tab appears inside the app's drawer
-
-ProjectsHome.navigationOptions = {
-  drawerLabel: 'Projects',
-  drawerIcon: ({ tintColor }) => (
-    <Icon
-      name='project-diagram'
-      color='black'
-      size={20}
-    />
-  ),
-
-};
 
 
-export { ProjectsHome, ProjectStack, AddProjectStack };
+
+export { ProjectsHomeStack };

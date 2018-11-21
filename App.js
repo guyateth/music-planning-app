@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Animated} from 'react-native';
 import { DrawerNavigator, DrawerItems, StackActions, NavigationActions } from 'react-navigation';
-import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
 
 //grid for react, for easy gridding
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -26,10 +26,28 @@ import { HomeScreen,
          TodayStack,
          HistoryStack  } from './Code/Screens.js';
 
+import {HomeScreenStack} from './Code/Stack/HomeScreenStack.js';
+import {DiaryHomeScreenStack} from './Code/Stack/DiaryHomeStack.js';
+import {CommunityScreenStack} from './Code/Stack/CommunityHomeStack.js';
+import {PlanningHomeStack} from './Code/Stack/PlanningHomeStack.js';
+import {ProjectsHomeStack} from './Code/Stack/ProjectsHomeStack.js';
+import {SettingsHomeStack} from './Code/Stack/SettingsHomeStack.js';
+import {ToolsHomeStack} from './Code/Stack/ToolsHomeStack.js';
+import {AddCalendarEventScreenStack} from './Code/Stack/CalendarEventStack.js';
+import {CreateSessionScreenStack} from './Code/Stack/CreateSessionStack.js';
+import {HistoryScreenStack} from './Code/Stack/HistoryStack.js';
+import {TodayScreenStack} from './Code/Stack/TodayStack.js';
+import {AddProjectScreenStack} from './Code/Stack/NewProjectStack.js';
+import {ProjectScreenStack} from './Code/Stack/Project1Stack.js';
+import {MetronomeScreenStack} from './Code/Stack/MetronomeStack.js';
+import {RecordingScreenStack} from './Code/Stack/RecordingStack.js';
+import {StoreScreenStack} from './Code/Stack/StoreStack.js';
+
+
+
 //icons and cleaner buttons
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Button } from 'react-native-elements';
-
 
 
 
@@ -308,8 +326,8 @@ class SideMenu extends Component {
     });
     const AnimatedIcon = Animated.createAnimatedComponent(Icon);
     return(
-      <View>
-      <TouchableOpacity style={SideMenuStyles.menuelement} onPress={this.navigateToScreen('Projects')}>
+      <View style={{ backgroundColor: 'black' }}>
+      <TouchableOpacity style={SideMenuStyles.menuelement} onPress={this.navigateToScreen('ProjectsOverview')}>
         <Grid>
           <Col size={2}>
             <View style={SideMenuStyles.icon}>
@@ -366,7 +384,7 @@ class SideMenu extends Component {
     });
     const AnimatedIcon = Animated.createAnimatedComponent(Icon);
     return(
-      <View>
+      <View style={{ backgroundColor: 'white' }}>
       <TouchableOpacity style={SideMenuStyles.menuelement} onPress={this.navigateToScreen('Planning')}>
         <Grid>
           <Col size={2}>
@@ -422,7 +440,7 @@ class SideMenu extends Component {
     });
     const AnimatedIcon = Animated.createAnimatedComponent(Icon);
     return(
-      <View>
+      <View style={{ backgroundColor: 'white' }}>
       <TouchableOpacity style={SideMenuStyles.menuelement} onPress={this.navigateToScreen('Diary')}>
         <Grid>
           <Col size={2}>
@@ -465,7 +483,7 @@ class SideMenu extends Component {
     return(
       <Animated.View style={{ height: this.state.diaryHeight }} >
         {this.renderMenuSubElement('minus', 'Add Event','AddCalendarEvent')}
-        {this.renderMenuSubElement('minus', 'Create Session','Recording')}
+        {this.renderMenuSubElement('minus', 'Create Session','CreateSession')}
       </Animated.View>
     )
   }
@@ -478,7 +496,7 @@ class SideMenu extends Component {
     });
     const AnimatedIcon = Animated.createAnimatedComponent(Icon);
     return(
-      <View>
+      <View style={{ backgroundColor: 'white' }}>
       <TouchableOpacity style={SideMenuStyles.menuelement} onPress={this.navigateToScreen('Tools')}>
         <Grid>
           <Col size={2}>
@@ -571,7 +589,7 @@ const MyApp = createDrawerNavigator({
   Home: {
     screen: MainStack,
   },
-  Projects: {
+  ProjectsOverview: {
     screen: ProjectsHome,
   },
   Planning: {
@@ -627,7 +645,182 @@ const MyApp = createDrawerNavigator({
 );
 
 
+class SelectScreen extends React.Component {
+  render() {
+    return(
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        title="Drawer"
+        onPress={() => this.props.navigation.navigate('Drawerhandling')}
+      />
+      <Button
+        title="Buttons"
+        onPress={() => this.props.navigation.navigate('Stackhandling')}
+      />
+    </View>
+  );
+  }
+}
 
+const textStyles = StyleSheet.create({
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    height: 60,
+    backgroundColor: 'gray'
+  },
+  normalText: {
+    height: 60,
+    backgroundColor: 'gray'
+  },
+});
+
+class StackHomeScreen extends React.Component {
+  render() {
+    return(
+      <ScrollView>
+      <View style={{ height: 20 }} />
+      {/* Wrapper for Favourites */}
+      <View style={{ elevation: 4, backgroundColor: '#ddd' }} >
+        {/* Favourites */}
+        {/* Tiles */}
+        <View style={{ height: 600 }}>
+          <Grid>
+            <Col size={1} />
+            <Col size={10}>
+              <Row size={1} />
+              <Row size={10} >
+              <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('Overview')}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
+                  {/* This is the Tile itself */}
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}> Overview </Text>
+                </View>
+                </TouchableOpacity>
+              </Row>
+              <Row size={1} />
+              <Row size={10} >
+              <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('Planning')}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
+                  {/* This is the Tile itself */}
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}> Planning </Text>
+                </View>
+                </TouchableOpacity>
+              </Row>
+              <Row size={1} />
+              <Row size={10} >
+              <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('Tools')}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
+                  {/* This is the Tile itself */}
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}> Tools </Text>
+                </View>
+                </TouchableOpacity>
+              </Row>
+              <Row size={1} />
+              <Row size={10} >
+              <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('Settings')}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
+                  {/* This is the Tile itself */}
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}> Settings </Text>
+                </View>
+                </TouchableOpacity>
+              </Row>
+              <Row size={1} />
+            </Col>
+
+            <Col size={1} />
+
+            <Col size={10}>
+              <Row size={1} />
+              <Row size={10} >
+              <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('Projects')}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
+                  {/* This is the Tile itself */}
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}> Projects </Text>
+                </View>
+                </TouchableOpacity>
+              </Row>
+              <Row size={1} />
+              <Row size={10} >
+              <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('Diary')}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
+                  {/* This is the Tile itself */}
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}> Diary </Text>
+                </View>
+                </TouchableOpacity>
+              </Row>
+              <Row size={1} />
+              <Row size={10} >
+              <TouchableOpacity style={{flex: 1}} onPress={() => this.props.navigation.navigate('Community')}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'skyblue', elevation: 2 }} >
+                  {/* This is the Tile itself */}
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}> Community </Text>
+                </View>
+                </TouchableOpacity>
+              </Row>
+              <Row size={1} />
+              <Row size={10} >
+              </Row>
+              <Row size={1} />
+            </Col>
+
+            <Col size={1} />
+
+          </Grid>
+        </View>
+      </View>
+      </ScrollView>
+  );
+  }
+}
+const Stackscreen = createStackNavigator(
+  {
+
+    Home: StackHomeScreen,
+    Overview: HomeScreenStack,
+    Projects: ProjectsHomeStack,
+    Project: ProjectScreenStack,
+    AddProject: AddProjectScreenStack,
+    Planning: PlanningHomeStack,
+    CreateSession: CreateSessionScreenStack,
+    History: HistoryScreenStack,
+    Today: TodayScreenStack,
+    Diary: DiaryHomeScreenStack,
+    CalendarEvent: AddCalendarEventScreenStack,
+    Tools: ToolsHomeStack,
+    Metronome: MetronomeScreenStack,
+    Recording: RecordingScreenStack,
+    Shop: StoreScreenStack,
+    Community: CommunityScreenStack,
+    Settings: SettingsHomeStack,
+  },
+  {
+    initialRouteName: 'Home',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'skyblue',
+        elevation: 5
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  }
+);
+
+
+const Selector = createSwitchNavigator(
+  {
+    Select: SelectScreen,
+    Drawerhandling: MyApp,
+    Stackhandling: Stackscreen,
+  }, {
+    initialRouteName: 'Select',
+  }
+
+);
 
 
 /* This is needed for the react native environment
@@ -635,6 +828,6 @@ const MyApp = createDrawerNavigator({
  */
 export default class App extends React.Component {
   render() {
-    return <MyApp />;
+    return <Selector />;
   }
 }
