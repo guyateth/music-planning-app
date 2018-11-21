@@ -38,6 +38,9 @@ import { Button } from 'react-native-elements';
 
 /* The Stach navigator for The Home Stack
  * Handles everything in the Home Tab
+ *
+ * It will be displayed initially as a home screen. It has to be a stack navigator
+ * to actually track presses
  */
 const MainStack = createStackNavigator(
   {
@@ -60,6 +63,7 @@ const MainStack = createStackNavigator(
 
 /* The layout for the home tab inside the app drawer
  * needed for every single navigation option inside the drawer
+ * Tis is not needed anymore for newer versions, as the drawer has a custom layout
  */
 MainStack.navigationOptions = {
   drawerLabel: 'Home',
@@ -71,6 +75,10 @@ MainStack.navigationOptions = {
     />
   ),
 };
+
+/*
+ * This is the stylesheet for the sidemenu (drawer)
+ */
 
 const SideMenuStyles = StyleSheet.create({
   container: {
@@ -102,7 +110,16 @@ const SideMenuStyles = StyleSheet.create({
   },
 });
 
+/*
+ * This is the layout for the sidemenu itself. it will be passed to the drawer
+ * and renders everything needed including animations
+ */
+
 class SideMenu extends Component {
+  /*
+   * This is the navigation function, used for handling the navigation inside
+   * the submenu
+   */
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -110,6 +127,9 @@ class SideMenu extends Component {
     this.props.navigation.dispatch(navigateAction);
   }
 
+  /*
+   * constructor for setting the initial state
+   */
   constructor() {
     super();
     this.state = {
@@ -129,6 +149,12 @@ class SideMenu extends Component {
 
   }
 
+  /*
+   * Here follow some functions to handle the press on the little Picker
+   * next to the button in the submenu. each little picker has its own function
+   * named after the button next to it.
+   * The first one is for the projects picker
+   */
   updateProjectsPicker () {
     //reset the others
     if (this.state.planningPicker) {this.updatePlanningPicker();}
@@ -156,7 +182,9 @@ class SideMenu extends Component {
     }
 
   }
-
+  /*
+   * The second one is for the planning picker
+   */
   updatePlanningPicker () {
     //reset the others
     if (this.state.diaryPicker) {this.updateDiaryPicker();}
@@ -184,6 +212,9 @@ class SideMenu extends Component {
     }
   }
 
+  /*
+   * The third one is for the diary picker
+   */
   updateDiaryPicker () {
     //reset the others
     if (this.state.planningPicker) {this.updatePlanningPicker();}
@@ -211,6 +242,9 @@ class SideMenu extends Component {
     }
   }
 
+  /*
+   * The fourth one is for the tools picker
+   */
   updateToolsPicker () {
 
     if (this.state.planningPicker) {this.updatePlanningPicker();}
@@ -238,7 +272,11 @@ class SideMenu extends Component {
     }
   }
 
-
+  /*
+   * here comes a bunch of functions that render the subelement of the menu
+   * a subelement is one button. tthese are used in the submenus, the ones
+   * showing when zou press a picker
+   */
   renderMenuSubElement(iconname, text, navName) {
     return (
       <View style={SideMenuStyles.menuelement}>
@@ -267,6 +305,11 @@ class SideMenu extends Component {
     )
   }
 
+  /*
+   * here comes a bunch of functions that render the subelement of the menu
+   * a subelement is one button. these are used in the main menu, for buttons
+   * without a picker
+   */
   renderMenuElement(iconname, text, navName) {
     return (
       <View style={SideMenuStyles.menuelement}>
@@ -295,6 +338,12 @@ class SideMenu extends Component {
     )
   }
 
+  /*
+   * here comes a bunch of functions that render a specific menu element.
+   * those with a picker need to be built inside the the funtion, the others
+   * simply use the renderMenuElement subfuntion.
+   * Those with a picker also have an auxillary funtion to render the submenu
+   */
   //here we render the home part
   renderHome() {
     return(
@@ -546,6 +595,10 @@ class SideMenu extends Component {
     )
   }
 
+  /*
+   * This is the main render function. everything is put into functions to better
+   * structure the code
+   */
   render () {
     return (
       <View style={SideMenuStyles.container}>
