@@ -34,7 +34,7 @@ import { HomeScreen,
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Button } from 'react-native-elements';
 
-
+const Realm = require('realm');
 
 /* The Stach navigator for The Home Stack
  * Handles everything in the Home Tab
@@ -105,7 +105,7 @@ const SideMenuStyles = StyleSheet.create({
     alignItems: 'stretch',
   },
   menutext: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });
@@ -688,6 +688,7 @@ const MyApp = createDrawerNavigator({
  * Export the code, so it's useable
  */
 export default class App extends React.Component {
+
   render() {
     return <MyApp />;
   }
